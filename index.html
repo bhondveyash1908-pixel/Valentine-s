@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine 💘</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 50px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+      margin-right: 15px;
+    }
+
+    #no {
+      background: #ddd;
+      position: absolute;
+    }
+
+    #yes:hover {
+      transform: scale(1.1);
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sounds -->
+  <audio id="yesSound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3"></audio>
+  <audio id="noSound" src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-voice-laugh-343.mp3"></audio>
+
+  <div class="card">
+    <h1>Purva 💕<br>Will you be my Valentine?</h1>
+    <button id="yes" onclick="yesClicked()">Yes 💖</button>
+    <button id="no">No 😜</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const noSound = document.getElementById("noSound");
+    const yesSound = document.getElementById("yesSound");
+
+    noBtn.addEventListener("mouseover", () => {
+      noSound.play();
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    function yesClicked() {
+      yesSound.play();
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+          font-family:'Comic Sans MS',cursive;
+          text-align:center;">
+          <h1 style="color:#ff4d6d;">
+            Yayyy!!! 💘🥰<br>
+            Best Valentine ever 💖
+          </h1>
+        </div>
+      `;
+    }
+
+    // Create floating hearts
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "💕";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }, 300);
+  </script>
